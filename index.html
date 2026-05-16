@@ -3,134 +3,423 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tanque GitHub Pages</title>
+    <title>Tanque Arena | GitHub Pages</title>
     <style>
       :root {
         color-scheme: dark;
-        background: #05080c;
+        background: #05070d;
         color: #d7e4ff;
         font-family: Inter, system-ui, sans-serif;
+      }
+      * {
+        box-sizing: border-box;
       }
       body {
         margin: 0;
         min-height: 100vh;
+        background: radial-gradient(circle at top, #071526 0%, #03050a 40%, #000 100%);
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 32px;
+        padding: 24px;
       }
-      .page {
-        width: min(1100px, 100%);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+      .app {
+        width: min(1200px, 100%);
+        background: rgba(4, 12, 27, 0.95);
+        border: 1px solid rgba(56, 189, 248, 0.12);
+        border-radius: 28px;
         overflow: hidden;
-        background: linear-gradient(180deg, rgba(2, 17, 34, 0.96), #06090d 96%);
+        box-shadow: 0 32px 90px rgba(0, 0, 0, 0.45);
       }
       header {
-        padding: 42px 48px;
+        padding: 34px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2.2rem, 4vw, 4rem);
-        letter-spacing: 0.12em;
+      header h1 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3.4rem);
+        letter-spacing: 0.16em;
         text-transform: uppercase;
       }
-      p.lead {
+      header p {
         margin: 0;
-        max-width: 740px;
-        line-height: 1.8;
-        color: #a7b8d4;
+        max-width: 720px;
+        line-height: 1.7;
+        color: #aab8d5;
       }
-      section {
-        padding: 40px 48px;
+      .nav-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
       }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 24px;
-      }
-      .card {
-        background: rgba(10, 20, 35, 0.9);
-        border: 1px solid rgba(16, 46, 88, 0.4);
-        border-radius: 18px;
-        padding: 24px;
-        min-height: 220px;
-      }
-      .card h2 {
-        margin-top: 0;
-        font-size: 1.2rem;
-        color: #7dd3fc;
-      }
-      .card p {
-        margin: 0.75rem 0 0;
-        color: #c7d5ea;
-        line-height: 1.75;
-      }
-      .button {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-top: 24px;
-        padding: 14px 24px;
+      button {
+        border: 1px solid rgba(56, 189, 248, 0.24);
+        background: rgba(15, 23, 42, 0.92);
+        color: #d7e4ff;
         border-radius: 999px;
-        text-decoration: none;
+        padding: 12px 20px;
+        cursor: pointer;
         font-weight: 700;
-        background: #0f172a;
-        border: 1px solid rgba(56, 189, 248, 0.18);
-        color: #e2e8f0;
-        transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
       }
-      .button:hover {
-        transform: translateY(-1px);
-        background: rgba(56, 189, 248, 0.12);
+      button:hover,
+      button.active {
+        transform: translateY(-2px);
+        background: rgba(56, 189, 248, 0.13);
         border-color: #38bdf8;
       }
-      footer {
-        padding: 24px 48px 40px;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      main {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 24px;
+        padding: 32px 40px 40px;
+      }
+      .panel {
+        background: rgba(5, 12, 24, 0.95);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 28px;
+      }
+      .panel h2 {
+        margin: 0 0 16px;
+        font-size: 1.4rem;
+        color: #7dd3fc;
+      }
+      .panel p {
+        margin: 0 0 16px;
+        line-height: 1.85;
+        color: #c7d5ea;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+      .stat {
+        padding: 18px;
+        border-radius: 16px;
+        background: rgba(9, 20, 40, 0.9);
+        border: 1px solid rgba(56, 189, 248, 0.12);
+      }
+      .stat strong {
+        display: block;
+        font-size: 1.2rem;
+        color: #ffffff;
+      }
+      .stat span {
+        color: #9fb0cf;
+      }
+      #game-area {
+        width: 100%;
+        min-height: 560px;
+        background: radial-gradient(circle at top, #0f172a 0%, #020409 55%, #000 100%);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .instructions {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+        color: #bac9e9;
+      }
+      .instructions li {
+        list-style: none;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .key {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 46px;
+        height: 32px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(15, 23, 42, 0.9);
         font-size: 0.95rem;
-        color: #8a9bb8;
+      }
+      .footer {
+        padding: 20px 40px 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .footer small {
+        color: #889bb6;
+      }
+      .badge {
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.08);
+        color: #d7e4ff;
+        font-size: 0.95rem;
       }
     </style>
   </head>
   <body>
-    <main class="page">
+    <div class="app">
       <header>
-        <h1>Tanque</h1>
-        <p class="lead">
-          Proyecto desplegado para GitHub Pages. Esta página actúa como la entrada principal del portafolio y el mini juego de combate tanque, con un diseño claro y útil para visitantes.
-        </p>
-      </header>
-      <section>
-        <div class="grid">
-          <article class="card">
-            <h2>¿Qué es este proyecto?</h2>
-            <p>
-              Tanque es un proyecto de demostración para una experiencia interactiva de combate en navegador. Aquí puedes presentar el juego y explicar cómo se probará en GitHub Pages.
-            </p>
-          </article>
-          <article class="card">
-            <h2>Usar GitHub Pages</h2>
-            <p>
-              El sitio está listo para publicarse en GitHub Pages usando el archivo <code>index.html</code> en la raíz del repositorio. Si el repositorio se llama <strong>Tanque.github.io</strong>, la publicación queda disponible automáticamente en <strong>https://Jeze25.github.io/</strong>.
-            </p>
-          </article>
-          <article class="card">
-            <h2>Cómo hacerlo útil</h2>
-            <p>
-              Agrega más secciones, describe el juego, incluye capturas o un enlace a una demo. Esto convierte el repositorio en una página de lanzamiento útil y profesional.
-            </p>
-          </article>
+        <div>
+          <h1>Tanquera</h1>
+          <p>Juego interactivo de combate tanque para GitHub Pages. Muévete con WASD, dispara con Espacio y destruye los drones enemigos.</p>
         </div>
-        <a class="button" href="https://github.com/Jeze25/Tanque.github.io" target="_blank" rel="noreferrer noopener">
-          Ver repositorio en GitHub
-        </a>
-      </section>
-      <footer>
-        Esta página es la base de un despliegue útil en GitHub Pages. Puedes editarla y mejorarla con más contenido, juego y recursos.
-      </footer>
-    </main>
+        <div class="nav-buttons">
+          <button id="btn-home" class="active">Inicio</button>
+          <button id="btn-play">Jugar</button>
+          <button id="btn-reset">Reiniciar</button>
+        </div>
+      </header>
+      <main>
+        <section class="panel" id="home-panel">
+          <h2>Bienvenido</h2>
+          <p>Este proyecto ahora es una página interactiva lista para GitHub Pages. Usa los controles del panel de juego para probar una demo en el navegador sin necesidad de instalación.</p>
+          <p>Haz clic en <strong>Jugar</strong> para entrar al campo de batalla y ver cómo el tanque se mueve, dispara y esquiva los drones enemigos.</p>
+          <div class="stats">
+            <div class="stat">
+              <strong>HTML + JS</strong>
+              <span>Proyecto 100% estático</span>
+            </div>
+            <div class="stat">
+              <strong>GitHub Pages</strong>
+              <span>Despliegue instantáneo</span>
+            </div>
+            <div class="stat">
+              <strong>Controles</strong>
+              <span>WASD + Espacio</span>
+            </div>
+            <div class="stat">
+              <strong>Interactividad</strong>
+              <span>Canvas en vivo</span>
+            </div>
+          </div>
+        </section>
+        <section class="panel">
+          <h2>Zona de Juego</h2>
+          <div id="game-area">
+            <canvas id="game-canvas" width="1000" height="560"></canvas>
+          </div>
+          <ul class="instructions">
+            <li><span class="key">W</span> Avanzar</li>
+            <li><span class="key">A</span> Izquierda</li>
+            <li><span class="key">S</span> Retroceder</li>
+            <li><span class="key">D</span> Derecha</li>
+            <li><span class="key">␣</span> Disparar</li>
+          </ul>
+        </section>
+      </main>
+      <div class="footer">
+        <small>Usa GitHub Pages para publicar este juego directamente desde la raíz del repositorio.</small>
+        <span class="badge">Interactivo</span>
+      </div>
+    </div>
+    <script>
+      const canvas = document.getElementById('game-canvas');
+      const ctx = canvas.getContext('2d');
+      const width = canvas.width;
+      const height = canvas.height;
+      const keys = {};
+      const bullets = [];
+      const enemies = [];
+      const maxEnemies = 5;
+      const spawnCooldown = 120;
+      let enemyTimer = 0;
+      let score = 0;
+      let lives = 3;
+      let activePanel = 'home';
+      const tank = {
+        x: width / 2,
+        y: height - 90,
+        w: 46,
+        h: 52,
+        speed: 4.3,
+        angle: 0,
+        color: '#22d3ee',
+      };
+      function resetGame() {
+        tank.x = width / 2;
+        tank.y = height - 90;
+        tank.angle = -Math.PI / 2;
+        bullets.length = 0;
+        enemies.length = 0;
+        score = 0;
+        lives = 3;
+        enemyTimer = 0;
+      }
+      function spawnEnemy() {
+        const x = 60 + Math.random() * (width - 120);
+        enemies.push({ x, y: -40, w: 42, h: 42, speed: 1.6 + Math.random() * 1.6, angle: Math.PI / 2 });
+      }
+      function drawTank() {
+        ctx.save();
+        ctx.translate(tank.x, tank.y);
+        ctx.rotate(tank.angle);
+        ctx.fillStyle = tank.color;
+        ctx.fillRect(-tank.w / 2, -tank.h / 2, tank.w, tank.h);
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-tank.w / 2 + 8, -tank.h / 2 + 8, tank.w - 16, tank.h - 20);
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(-6, -tank.h / 2 - 14, 12, 22);
+        ctx.restore();
+      }
+      function drawBullet(bullet) {
+        ctx.fillStyle = '#82d4ff';
+        ctx.fillRect(bullet.x - 4, bullet.y - 10, 8, 18);
+      }
+      function drawEnemy(enemy) {
+        ctx.save();
+        ctx.translate(enemy.x, enemy.y);
+        ctx.fillStyle = '#f472b6';
+        ctx.fillRect(-enemy.w / 2, -enemy.h / 2, enemy.w, enemy.h);
+        ctx.fillStyle = '#0f172a';
+        ctx.fillRect(-enemy.w / 2 + 6, -enemy.h / 2 + 8, enemy.w - 12, enemy.h - 18);
+        ctx.restore();
+      }
+      function drawUI() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+        ctx.fillRect(18, 18, 220, 96);
+        ctx.fillStyle = '#c7d5ea';
+        ctx.font = '18px Inter, system-ui, sans-serif';
+        ctx.fillText('Puntuación: ' + score, 36, 46);
+        ctx.fillText('Vidas: ' + lives, 36, 74);
+        ctx.fillText('Drones: ' + enemies.length, 36, 102);
+      }
+      function update() {
+        if (keys.ArrowLeft || keys.a || keys.A) {
+          tank.x -= tank.speed;
+          tank.angle = -Math.PI / 2;
+        }
+        if (keys.ArrowRight || keys.d || keys.D) {
+          tank.x += tank.speed;
+          tank.angle = -Math.PI / 2;
+        }
+        if (keys.ArrowUp || keys.w || keys.W) {
+          tank.y -= tank.speed;
+          tank.angle = -Math.PI / 2;
+        }
+        if (keys.ArrowDown || keys.s || keys.S) {
+          tank.y += tank.speed;
+          tank.angle = Math.PI / 2;
+        }
+        tank.x = Math.max(36, Math.min(width - 36, tank.x));
+        tank.y = Math.max(36, Math.min(height - 36, tank.y));
+        if (keys[' '] && bullets.length < 5) {
+          bullets.push({ x: tank.x, y: tank.y - 30, dy: -7 });
+        }
+        bullets.forEach((b, index) => {
+          b.y += b.dy;
+          if (b.y < -20) bullets.splice(index, 1);
+        });
+        enemies.forEach((enemy, eIndex) => {
+          enemy.y += enemy.speed;
+          if (enemy.y > height + 40) {
+            enemies.splice(eIndex, 1);
+            lives -= 1;
+          }
+          bullets.forEach((bullet, bIndex) => {
+            const distX = Math.abs(bullet.x - enemy.x);
+            const distY = Math.abs(bullet.y - enemy.y);
+            if (distX < 24 && distY < 24) {
+              enemies.splice(eIndex, 1);
+              bullets.splice(bIndex, 1);
+              score += 15;
+            }
+          });
+          const distX = Math.abs(tank.x - enemy.x);
+          const distY = Math.abs(tank.y - enemy.y);
+          if (distX < 40 && distY < 40) {
+            enemies.splice(eIndex, 1);
+            lives -= 1;
+          }
+        });
+        if (enemyTimer <= 0 && enemies.length < maxEnemies) {
+          spawnEnemy();
+          enemyTimer = spawnCooldown;
+        }
+        enemyTimer -= 1;
+        if (lives <= 0) {
+          lives = 0;
+          endGame();
+        }
+      }
+      function endGame() {
+        keys[' '] = false;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '48px Inter, system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', width / 2, height / 2 - 10);
+        ctx.font = '22px Inter, system-ui, sans-serif';
+        ctx.fillText('Presiona Reiniciar para volver a jugar', width / 2, height / 2 + 40);
+      }
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = '#060a14';
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.08)';
+        for (let y = 0; y < height; y += 48) {
+          ctx.fillRect(0, y, width, 1);
+        }
+        for (let x = 0; x < width; x += 48) {
+          ctx.fillRect(x, 0, 1, height);
+        }
+        drawTank();
+        bullets.forEach(drawBullet);
+        enemies.forEach(drawEnemy);
+        drawUI();
+      }
+      function loop() {
+        if (activePanel === 'play' && lives > 0) {
+          update();
+          draw();
+        }
+        requestAnimationFrame(loop);
+      }
+      document.addEventListener('keydown', (event) => {
+        keys[event.key] = true;
+      });
+      document.addEventListener('keyup', (event) => {
+        keys[event.key] = false;
+      });
+      document.getElementById('btn-home').addEventListener('click', () => {
+        activePanel = 'home';
+        document.getElementById('home-panel').style.display = 'block';
+        document.getElementById('btn-home').classList.add('active');
+        document.getElementById('btn-play').classList.remove('active');
+      });
+      document.getElementById('btn-play').addEventListener('click', () => {
+        activePanel = 'play';
+        document.getElementById('home-panel').style.display = 'none';
+        document.getElementById('btn-home').classList.remove('active');
+        document.getElementById('btn-play').classList.add('active');
+      });
+      document.getElementById('btn-reset').addEventListener('click', () => {
+        resetGame();
+        activePanel = 'play';
+        document.getElementById('home-panel').style.display = 'none';
+        document.getElementById('btn-home').classList.remove('active');
+        document.getElementById('btn-play').classList.add('active');
+      });
+      resetGame();
+      draw();
+      loop();
+    </script>
   </body>
 </html>

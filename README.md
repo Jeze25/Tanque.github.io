@@ -1,6 +1,6 @@
 # Tanque.github.io
 
-Este repositorio está listo para usar con GitHub Pages.
+Este repositorio está listo para usar con GitHub Pages como una página interactiva.
 
 ## Despliegue
 
@@ -8,13 +8,13 @@ Este repositorio está listo para usar con GitHub Pages.
 - Si el repositorio se llama `Tanque.github.io`, la página estará disponible en:
   `https://Jeze25.github.io/`
 
-## Contenido
+## Contenido interactivo
 
-- `index.html`: Página principal lista para GitHub Pages.
-- `src/`: Componentes Vue existentes, que pueden usarse en una futura versión con Vite o un build de Vue.
+- `index.html`: juego de tanque interactivo con canvas y controles WASD + Espacio.
+- `src/`: componentes Vue existentes que se pueden usar más adelante si conviertes el proyecto en una app Vue con Vite.
 
 ## Siguiente paso
 
 1. Empuja los cambios a GitHub.
 2. En el repositorio, activa GitHub Pages desde la configuración si es necesario.
-3. Abre `https://Jeze25.github.io/` para ver la página desplegada.
+3. Abre `https://Jeze25.github.io/` para ver el juego en vivo.
